@@ -5,7 +5,7 @@
 <br>
 
 
-###Application for Calorie Counting
+### Application for Calorie Counting
 
 
 The application is secured with Spring Security along with JSON Web Token. 

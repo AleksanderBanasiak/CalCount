@@ -51,8 +51,8 @@ I also used:
 <br>
 <br>
 
----
 ### Screenshots
+---
 ![1](https://github.com/AleksanderBanasiak/CalCount/assets/147528750/f0e8983b-9148-4a7a-8514-34e3542e250d)
 ![2](https://github.com/AleksanderBanasiak/CalCount/assets/147528750/c3e9163b-e996-4107-8a66-41f9420727c5)
 ![3](https://github.com/AleksanderBanasiak/CalCount/assets/147528750/71dfee88-cab6-4275-8c37-5e8c34393b73)

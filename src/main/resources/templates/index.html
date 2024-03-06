@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main site</title>
+    <meta name="author" content="Aleksander Banasiak">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="icon" href="/icon/kcal.ico" type="image/x-icon">
+</head>
+<body>
+<header th:replace="fragments/header.html :: CalHeader"></header>
+<div id="progress">
+    <span id="progress-value">&#x1F815;</span>
+</div>
+<br>
+<br>
+<div class = "maincontainer">
+    <div class="maincontent">
+        <div class="topOfMainContent">
+            <h2 th:text="${day}"></h2>
+            <a href="/previousDay" class="firstButton">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c7.6-4.2 16.8-4.1 24.3 .5l144 88c7.1 4.4 11.5 12.1 11.5 20.5s-4.4 16.1-11.5 20.5l-144 88c-7.4 4.5-16.7 4.7-24.3 .5s-12.3-12.2-12.3-20.9V168c0-8.7 4.7-16.7 12.3-20.9z"/></svg></a>
+            <a href="/nextDay">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c7.6-4.2 16.8-4.1 24.3 .5l144 88c7.1 4.4 11.5 12.1 11.5 20.5s-4.4 16.1-11.5 20.5l-144 88c-7.4 4.5-16.7 4.7-24.3 .5s-12.3-12.2-12.3-20.9V168c0-8.7 4.7-16.7 12.3-20.9z"/></svg>
+            </a>
+        </div>
+        <div th:each="type: ${types}">
+            <div class="mealDescription">
+                <div class="mealContent">
+                    <div class="mealNameAndAdd">
+                        <h2 th:text="${type}"></h2>
+                        <span th:if="${flag}">
+                    <a th:href="@{/meals/add/{type}(type=${type})}">+</a>
+                    </span>
+                    </div>
+                    <table class="meal">
+                        <div th:each="meal: ${meals}">
+                            <div th:if="${meal.mealType().equals(type)}">
+                                <thead class="mealHead">
+                                <th th:text="${meal.totalMeal().name()}"></th>
+                                <th>Kcal</th>
+                                <th>Protein</th>
+                                <th>Carbs</th>
+                                <th>Fiber</th>
+                                <th>Fat</th>
+                                </thead>
+                                <tr>
+                                    <td><span class="expandChildTable"></span></td>
+                                    <td th:text="${meal.totalMeal().kcal()}"></td>
+                                    <td th:text="${meal.totalMeal().protein()}"></td>
+                                    <td th:text="${meal.totalMeal().carbs()}"></td>
+                                    <td th:text="${meal.totalMeal().fiber()}"></td>
+                                    <td th:text="${meal.totalMeal().fat()}"></td>
+                                </tr>
+                                <tr class="childTableRow">
+                                    <td colspan="6">
+                                        <div th:each="product: ${meal.totalProducts()}">
+                                            <table class="midTable">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="middle" th:text="${product.name()}"></td>
+                                                    <td class="middle" th:text="${product.kcal()}"></td>
+                                                    <td class="middle" th:text="${product.protein()}"></td>
+                                                    <td class="middle" th:text="${product.carbs()}"></td>
+                                                    <td class="middle" th:text="${product.fiber()}"></td>
+                                                    <td class="middle" th:text="${product.fat()}"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </div>
+                        </div>
+                    </table>
+                </div>
+            </div>
+        </div>
+    <br>
+        <footer th:replace="fragments/footer.html :: CalFooter"></footer>
+    </div>
+    <br>
+    <br>
+</div>
+<div class="containerInfo">
+    <span class="hoverTrigger">&#169;</span>
+    <div class="infoAboutMe">&#169; The application was developed by Aleksander Banasiak</div>
+</div>
+<script src="//code.jquery.com/jquery.js"></script>
+<script th:inline="javascript" src="/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Aleksander Banasiak">
+  <link rel="stylesheet" type="text/css" href="/css/style2.css">
+  <title>Register Page</title>
+  <link rel="icon" href="/icon/kcal.ico" type="image/x-icon">
+</head>
+<body>
+<h1 class="todo">
+  <img src="/icon/kcal.png" class="color-change"  />
+  <p>Cal</p>
+  <p class="obj1">Count</p>
+</h1>
+<div class="container" id="container">
+  <div class="form-container sign-up2">
+    <form th:action="@{/auth/register}" method="post" >
+      <div class="showMessage">
+        <div class="message" th:if="${userexists}" >User name is taken!</div>
+        <div class="message" th:if="${userisnotvalid}" >User is not valid!</div>
+        <div class="message" th:if="${passisnotvalid}" >Password is not valid!</div>
+        <div class="message" th:if="${param.success}" >Registration Successful!</div>
+      </div>
+      <h1 class="signIn">Create Account</h1>
+      <div class ="input-group">
+        <input type="text" minlength="3" maxlength="15" id="firstName" name = "username" autocomplete="off" required>
+        <label>Name</label>
+      </div>
+      <div class ="input-group">
+        <input type="password" minlength="3" maxlength="15" name="password" autocomplete="off" required>
+        <label>Password</label>
+      </div>
+      <button name="register">Sign Up</button>
+    </form>
+  </div>
+  <div class="form-container sign-in2">
+    <form th:action="@{/auth/login}" method="post">
+      <div class="showMessage"></div>
+      <h1 class="signIn">Sign In</h1>
+      <div class ="input-group">
+        <input type="text" id ="username" name = "email" autocomplete="off" required>
+        <label>Name</label>
+      </div>
+      <div class ="input-group">
+        <input type="password" id="password" name="password" autocomplete="off" required>
+        <label>Password</label>
+      </div>
+      <button>Sign In</button>
+    </form>
+  </div>
+  <div class="toggle-container2">
+    <div class="toggle">
+      <div class="toggle-panel toggle-left">
+        <h1>First time?</h1>
+        <p>Join us and embark on your journey to better health!
+          Register with your personal details and begin tracking your calorie intake.</p>
+        <button onclick="delay('/auth/login')" class="hidden" id="login">Sign Up</button>
+      </div>
+      <div class="toggle-panel toggle-right">
+        <h1>Welcome Back!</h1>
+        <p>Provide your personal details and kickstart your calorie counting journey towards a healthier you</p>
+        <button  onclick="delay('/auth/login')" class="hidden" id="register">Sign In</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/script2.js"></script>
+</body>
+</html>

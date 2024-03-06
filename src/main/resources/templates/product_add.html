@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Add Product</title>
+    <meta name="author" content="Aleksander Banasiak">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="/icon/kcal.ico" type="image/x-icon">
+</head>
+<body>
+<header th:replace="fragments/header.html :: CalHeader"></header>
+<div class = "containerToCreate">
+    <div class="contentToCreate">
+        <div class="header-container">
+            <h1 class="headerText">Create Product</h1>
+            <div class="icon-container">
+                <i class="fas fa-info-circle custom-info-icon"></i>
+                <div class="tooltip">
+                    <div class="tooltip-header">How to add product</div>
+                    <div class="contentTip">Start by providing the product name, then fill in <b>all the information</b> regarding macronutrients (if any macronutrient is not listed in the nutritional table, enter 0).</div>
+                </div>
+            </div>
+        </div>
+        <div class="showMessage">
+        <div class="message"  th:if="${flag}" >Invalid Data</div>
+        </div>
+        <form th:action="@{/products/save}" th:object = "${product}"  method="POST">
+            <div class="inputContainer2">
+                <div class ="input-group2">
+                    <input type = "text" maxlength="20" minlength="1" name = "name" th:field = "*{name}" autocomplete="off" required>
+                    <label>Product Name</label>
+                </div>
+            </div>
+            <div class="inputContainer2">
+            <div class ="input-group2">
+                <input type = "text" step="0.1" pattern="[0-9]+(\.[0-9]+)?" maxlength="5" minlength="1" th:field = "*{kcal}"  autocomplete="off" required>
+                <label> Kcal </label>
+            </div></div>
+            <div class="inputContainer2">
+            <div class ="input-group2">
+                <input type = "text" step="0.1"  pattern="[0-9]+(\.[0-9]+)?" maxlength="4" minlength="1" th:field = "*{protein}" autocomplete="off" required>
+                <label> Protein </label>
+            </div>
+            </div>
+            <div class="inputContainer2">
+                <div class ="input-group2">
+                <input type = "text" step="0.1" pattern="[0-9]+(\.[0-9]+)?" maxlength="4" minlength="1" th:field = "*{carbs}" autocomplete="off" required>
+                <label> Carbs </label>
+            </div>
+            </div>
+            <div class="inputContainer2">
+                <div class ="input-group2">
+                <input type = "text" step="0.1" pattern="[0-9]+(\.[0-9]+)?" maxlength="4" minlength="1" th:field = "*{fiber}" autocomplete="off" required>
+                <label> Fiber </label>
+            </div>
+            </div>
+            <div class="inputContainer2">
+                <div class ="input-group2">
+                <input type = "text" step="0.1" pattern="[0-9]+(\.[0-9]+)?" maxlength="4" minlength="1"  th:field = "*{fat}" autocomplete="off" required>
+                <label> Fat </label>
+            </div>
+            </div>
+            <button type="submit" class = "buttonSub">Create</button>
+        </form>
+    </div>
+</div>
+<br>
+<br>
+<script src="/js/script2.js"></script>
+</body>
+</html>

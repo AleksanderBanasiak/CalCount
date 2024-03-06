@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Add Meal</title>
+  <meta name="author" content="Aleksander Banasiak">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="icon" href="/icon/kcal.ico" type="image/x-icon">
+</head>
+<body>
+<header th:replace="fragments/header.html :: CalHeader"></header>
+  <div class = "containerToCreate">
+      <div class="contentToCreate">
+        <div class="header-container">
+          <h1 class="headerText">Create Meal</h1>
+          <div class="icon-container">
+            <i class="fas fa-info-circle custom-info-icon"></i>
+            <div class="tooltip">
+              <div class="tooltip-header">How to add meal</div>
+              <div class="contentTip">Start by entering the name of the meal, then indicate what group
+                of dishes it should belong to and select the <b>products it contains</b> (if the products are
+                not initially displayed, you need to add them first).</div>
+            </div>
+          </div>
+        </div>
+    <div class="showMessage">
+      <div class="message"  th:if="${flag}" >Invalid Data</div>
+      <div class="message2"  th:if="${flag2}" >Select products first</div>
+    </div>
+    <form th:action="@{/meals/save}" th:object = "${meal}"  method="POST">
+      <div class="inputContainer3">
+        <div class ="input-group2">
+          <input type = "text" maxlength="20" minlength="1" name = "name" th:field = "*{mealName}" autocomplete="off" required>
+          <label>Meal name</label>
+        </div>
+      </div>
+    <br>
+        <div th:each="model : ${T(com.banasiak.CalCount.model.MealType).values()}" class="mealTypeContainer">
+          <label class="particles-checkbox-container">
+            <input type="radio"  th:field="*{mealType}" class="particles-checkbox" name="toggle" th:id="${model}"  th:value="${model}" required>
+            <span th:text="${model}"></span>
+          </label>
+        </div>
+    <br>
+    <br>
+      <div class="scrollContainer">
+      <div th:each="product: ${products}" th:class="${products.size() > 4 ? 'mealTypeContainer2' : 'mealTypeContainer3'}">
+        <label class="particles-checkbox-container">
+        <input type="checkbox"  th:field="*{products}" class="particles-checkbox" name="toggle" th:value="${product.productId}">
+        <span th:text="${product.name}"></span>
+      </label>
+      </div>
+      </div>
+      <br>
+      <button type="submit" class = "buttonSub">Create</button>
+    </form>
+  </div>
+</div>
+<br>
+<br>
+<br>
+</body>
+</html>

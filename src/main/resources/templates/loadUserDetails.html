@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Aleksander Banasiak">
+    <link rel="stylesheet" type="text/css" href="/css/style4.css">
+    <title>User Details</title>
+    <link rel="icon" href="/icon/kcal.ico" type="image/x-icon">
+</head>
+<body>
+<h2 class="userName" th:text="${name}"></h2>
+<div class="container">
+    <div class="content" id="colorDiv">
+        <form th:action="@{/users/add/macro}" th:object = "${info}" method="post">
+            <div class="box">
+                <span class="text">Height</span>
+                <input type="text" maxlength="3" pattern="[0-9]{2,3}" th:field = "*{height}" autocomplete="off" required>
+                <span class="bottom">Cm</span>
+            </div>
+            <div class="box">
+                <span class="text">Weight</span>
+                <input type="text" maxlength="3" pattern="[0-9]{2,3}" th:field = "*{weight}" autocomplete="off" required>
+                <span class="bottom">Kg</span>
+            </div>
+            <div class="box">
+                <span class="text">Age</span>
+                <input type="text" maxlength="3" pattern="[0-9]{1,3}" th:field = "*{age}" autocomplete="off" required>
+                <span class="bottom">Years</span>
+            </div>
+            <div class="box">
+                <span class="text">Sex</span>
+                <div th:each="model, iterStat : ${T(com.banasiak.CalCount.model.user.Sex).values()}"  class="radio-option2" th:classappend="${iterStat.index == 0 ? 'radio-optionFirst' : ''} ">
+                    <input type="radio"  th:field="*{sex}" name="sex" th:id="${model}"  th:value="${model}" required>
+                    <label  th:for="${model}" th:text="${model}"></label>
+                </div>
+            </div>
+            <div class="box">
+                <span class="text">Activity</span>
+                <div th:each="model, iterStat : ${T(com.banasiak.CalCount.model.user.Activity).values()}" class="radio-option" th:classappend="${iterStat.index == 0 ? 'radio-optionFirst' : ''} ">
+                        <input type="radio"  th:field="*{activity}" name="mealType" th:id="${model}"  th:value="${model}" required>
+                        <label th:for="${model}" th:text="${model}"></label>
+                    </div>
+            </div>
+</div>
+    <div class="buttonSave">
+        <div class="message" th:if="${infoNotValid}" >Invalid Data</div>
+            <button type="submit" class="add">Set data</button>
+    </div>
+</form>
+    <div class="content2">
+        <form>
+        <div class="box">
+            <span class="text">Kcal</span>
+            <span class="num" data-val=2762 data-nutrient="kcal">0</span>
+            <div  class="displayValue"></div>
+        </div>
+        <div class="box">
+            <span class="text">Protein</span>
+            <span class="num" data-val=156 data-nutrient="protein">0</span>
+            <div  class="displayValue" id="protein"></div>
+        </div>
+        <div class="box">
+            <span class="text">Carbs</span>
+            <span class="num" data-val=320 data-nutrient="carbs">0</span>
+            <div  class="displayValue" id="carbs"></div>
+        </div>
+        <div class="box">
+            <span class="text">Fiber</span>
+            <span class="num" data-val=32 data-nutrient="fiber">0</span>
+            <div  class="displayValue"></div>
+        </div>
+        <div class="box">
+            <span class="text">Fat</span>
+            <span class="num" data-val=88 data-nutrient="fat">0</span>
+            <div  class="displayValue"></div>
+        </div>
+    </div>
+    <div class="buttonSave">
+    </div>
+    </form>
+</div>
+<script src="/js/script4.js"></script>
+</body>
+</html>

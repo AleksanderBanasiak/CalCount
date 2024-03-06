@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Details</title>
+    <meta name="author" content="Aleksander Banasiak">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/css/style4.css">
+    <link rel="icon" href="/icon/kcal.ico" type="image/x-icon">
+</head>
+<body>
+<h2 class="userName" th:text="${user.username}"></h2>
+<div class="container">
+        <div class="content" id="colorDiv">
+            <form>
+            <div class="box">
+                <span class="text">Height</span>
+                <div class="textInBox" th:text="${userInfo.getHeight()}"></div>
+                <span class="bottom">Cm</span>
+                <span class="bottom">ㅤ</span>
+            </div>
+            <div class="box">
+                <span class="text">Weight</span>
+                <div class="textInBox" th:text="${userInfo.getWeight()}"></div>
+                <span class="bottom">Kg</span>
+                <span class="bottom">ㅤ</span>
+            </div>
+            <div class="box">
+                <span class="text">Age</span>
+                <div class="textInBox" th:text="${userInfo.getAge()}"></div>
+                <span class="bottom">Years</span>
+                <span class="bottom">ㅤ</span>
+            </div>
+            <div class="box">
+                <span class="text">Sex</span>
+                <div class="textInBox" th:text="${userInfo.getSex()}"></div>
+                <span class="bottom">ㅤ</span>
+                <span class="bottom">ㅤ</span>
+            </div>
+            <div class="box">
+                <span class="text">Activity</span>
+                <div class="textInBox" th:text="${userInfo.getActivity()}"></div>
+                <span class="bottom">ㅤ</span>
+                <span class="bottom">ㅤ</span>
+            </div>
+            </div>
+    <div class="buttonSave">
+        <button type="submit" class="add">
+            <a th:href="@{/changeInfo/{id}(id=${user.getUserId()})}">Change data</a>
+            </button>
+    </div>
+    </form>
+    <div class="content2">
+        <form th:action="@{/user/info}" th:object="${macro}" method="post" onsubmit="return handleSubmit(event)">
+        <div class="box">
+            <span class="text">Kcal</span>
+            <span class="num" th:attr="data-val=${usersMacro.kcal}" data-nutrient="kcal">0</span>
+            <span class="bottom">ㅤ</span>
+            <button class="increaseButton"><a th:href="@{/bulk/{id}(id=${user.getUserId()})}">Bulk</a></button>
+            <button class="decreaseButton"><a th:href="@{/cut/{id}(id=${user.getUserId()})}">Cut</a></button>
+            <input type="hidden" name="kcal" th:value="${usersMacro.kcal}" th:field="*{kcal}" />
+        </div>
+        <div class="box">
+            <span class="text">Protein</span>
+            <span class="num" th:attr="data-val=${usersMacro.protein}" data-nutrient="protein">0</span>
+            <span class="bottom">ㅤ</span>
+            <button class="increaseButton" onmousedown="startChangingValue('protein', 1)" onmouseup="stopChangingValue()">+</button>
+            <button class="decreaseButton" onmousedown="startChangingValue('protein', -1)" onmouseup="stopChangingValue()">-</button>
+            <input type="hidden" name="protein" th:value="${usersMacro.protein}" th:field="*{protein}" />
+        </div>
+        <div class="box">
+            <span class="text">Carbs</span>
+            <span class="num" th:attr="data-val=${usersMacro.carbs}" data-nutrient="carbs">0</span>
+            <span class="bottom">ㅤ</span>
+            <button class="increaseButton" onmousedown="startChangingValue('carbs', 1)" onmouseup="stopChangingValue()">+</button>
+            <button class="decreaseButton" onmousedown="startChangingValue('carbs', -1)" onmouseup="stopChangingValue()">-</button>
+            <input type="hidden" name="carbs" th:value="${usersMacro.carbs}" th:field="*{carbs}" />
+        </div>
+        <div class="box">
+            <span class="text">Fiber</span>
+            <span class="num" th:attr="data-val=${usersMacro.fiber}" data-nutrient="fiber">0</span>
+            <span class="bottom">ㅤ</span>
+            <button class="increaseButton" onmousedown="startChangingValue('fiber', 1)" onmouseup="stopChangingValue()">+</button>
+            <button class="decreaseButton" onmousedown="startChangingValue('fiber', -1)" onmouseup="stopChangingValue()">-</button>
+            <input type="hidden" name="fiber" th:value="${usersMacro.fiber}" th:field="*{fiber}" />
+        </div>
+        <div class="box">
+            <span class="text">Fat</span>
+            <span class="num" th:attr="data-val=${usersMacro.fat}" data-nutrient="fat">0</span>
+            <span class="bottom">ㅤ</span>
+            <button class="increaseButton" onmousedown="startChangingValue('fat', 1)" onmouseup="stopChangingValue()">+</button>
+            <button class="decreaseButton" onmousedown="startChangingValue('fat', -1)" onmouseup="stopChangingValue()">-</button>
+            <input type="hidden" name="fat" th:value="${usersMacro.fat}" th:field="*{fat}" />
+        </div>
+    </div>
+        <div class="buttonSave">
+        <button type="submit" class="add" name="submit">Set data</button>
+    </div>
+    </form>
+</div>
+</div>
+<script th:inline="javascript">
+    var valueFromThymeleaf = /*[[${value}]]*/ '0';
+    var valSpan = document.getElementById('value');
+    valSpan.dataset.val = valueFromThymeleaf;
+    valSpan.textContent = valueFromThymeleaf;
+</script>
+    <script src="/js/script3.js"></script>
+</body>
+</html>

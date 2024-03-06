@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Specific Meal</title>
+    <meta name="author" content="Aleksander Banasiak">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="/icon/kcal.ico" type="image/x-icon">
+</head>
+<body>
+<header th:replace="fragments/header.html :: CalHeader"></header>
+<div class = "containerToCreate">
+    <div class="contentToCreate">
+        <div class="header-container">
+            <h1 class="headerText" th:text="${name}"></h1>
+            <div class="icon-container">
+                <i class="fas fa-info-circle custom-info-icon"></i>
+                <div class="tooltip">
+                    <div class="tooltip-header">How to add a meal at a specific time of the day?</div>
+                    <div class="contentTip">
+                        Start by selecting a meal, then navigate to the "given product weights" section and input the weight of each product <b>in grams.</b>
+                        (If you want to enter decimal values, separate them with a dot.)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scrollContainer3">
+            <th:block th:each="meal, iterStat: ${meals}">
+                <a th:href="@{/meals/{id}(id=${meal.mealId})}" th:class="${iterStat.index > 3 ? 'mealContainer2' : 'mealContainer3'}"
+                   onclick="changeColorAndRedirect(event, this)" class="mealLink">
+                    <div>
+                        <span th:text="${meal.mealName}"></span>
+                    </div>
+                </a>
+            </th:block>
+        </div>
+        <script src="/js/script4.js"></script>
+        <div class="fill"></div>
+    </div>
+</div>
+<br>
+<br>
+</body>
+</html>

@@ -39,6 +39,10 @@ Security:
 - JSON Web Token
 - Spring Security
 
+Tests:
+-JUnit
+-Mockito
+
 Database:
 - MySQL
 

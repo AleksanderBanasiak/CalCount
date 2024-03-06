@@ -40,8 +40,8 @@ Security:
 - Spring Security
 
 Tests:
--JUnit
--Mockito
+- JUnit
+- Mockito
 
 Database:
 - MySQL

@@ -11,6 +11,9 @@ import static com.banasiak.CalCount.calculation.ProductCalculation.calcMacroForM
 public class MealOfTheDayDtoMapper {
 
     public static List<MealOfTheDayDto> mapMealOfTheDayToDto(List<MealOfTheDay> meals){
+//        if(meals.isEmpty()){
+//            throw new NullPointerException("The meal list is empty");
+//        }
         return meals.stream()
                 .map(meal -> new MealOfTheDayDto(
                         meal.getMealOfTheDayId(),

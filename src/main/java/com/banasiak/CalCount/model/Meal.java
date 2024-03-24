@@ -42,4 +42,8 @@ public class Meal {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public Meal(String mealName, MealType mealType) {
+        this.mealName = mealName;
+        this.mealType = mealType;
+    }
 }

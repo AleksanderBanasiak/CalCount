@@ -9,6 +9,9 @@ import com.banasiak.CalCount.model.user.UserInfo;
 public class UserInfoShowMapper {
 
     public static UserInfoShowDto mapUserInfoDtoToUserInfoShowDto(UserInfoDto userInfoDto){
+//        if(userInfoDto==null){
+//            throw new NullPointerException("User Info Dto is null");
+//        }
 
         return new UserInfoShowDto(
                 changeSexEnumToString(userInfoDto.getSex()),

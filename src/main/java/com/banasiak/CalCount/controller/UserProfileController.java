@@ -7,6 +7,7 @@ import com.banasiak.CalCount.service.UserInfoService;
 import com.banasiak.CalCount.service.UserMacroService;
 import com.banasiak.CalCount.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class UserProfileController {
             return "loadUserDetails";
         }
         if(userService.findUserByName(principal.getName()).getUserInfo().getUserMacro() == null){
-            setMacro(userService.findUserByName(principal.getName()).getUserInfo(), 100);
+            setMacro(userService.findUserByName(principal.getName()).getUserInfo());
             modelsForMacro(model, userService.findUserByName(principal.getName()),
                     mapUserInfoDtoToUserInfoShowDto(mapUserInfoToUserInfoDto(userService.findUserByName(principal.getName()).getUserInfo())));
             return "saveUserMacro";
@@ -77,7 +78,7 @@ public class UserProfileController {
 //        }
         userInfoService.saveUserInfo(userInfo);
         userService.saveUsersInfo(userService.findUserByName(principal.getName()), userInfo);
-        setMacro(userInfo, 100);
+        setMacro(userInfo);
         modelsForMacro(model, userService.findUserByName(principal.getName()), mapUserInfoDtoToUserInfoShowDto(userInfoDto));
         return "saveUserMacro";
     }
@@ -99,25 +100,17 @@ public class UserProfileController {
 
     @GetMapping("/bulk/{id}")
     private String bulk(@PathVariable Long id, Model model){
-
-        // to działa tylko raz można albo zwiększyć albo zmniejszyć od wartosci poczatkowej
-        setMacro(userService.findUserById(id).getUserInfo(), 115);
+        macro = calculateMacroOfDifferentNutrition(macro, 115);
         modelsToChangeNutrition(model, userService.findUserById(id));
-//        model.addAttribute("userInfo", userInfo);
-//        model.addAttribute("usersMacro", macro);
-//        model.addAttribute("user", userService.findUserById(id));
-//        model.addAttribute("macro", new UserMacro());
-
         return "saveUserMacro";
     }
 
     @GetMapping("/cut/{id}")
     private String cut(@PathVariable Long id, Model model){
-        setMacro(userService.findUserById(id).getUserInfo(), 85);
+        macro = calculateMacroOfDifferentNutrition(macro, 85);
         modelsToChangeNutrition(model, userService.findUserById(id));
         return "saveUserMacro";
     }
-
 
     private void modelsToChangeNutrition(Model model, User user){
         model.addAttribute("userInfo", user.getUserInfo());
@@ -126,11 +119,10 @@ public class UserProfileController {
         model.addAttribute("macro", new UserMacro());
     }
 
-
-    public void setMacro(UserInfo userInfo, int typeOfNutrition) {
-        macro.setKcal(calculateCaloricDemand(userInfo , typeOfNutrition));
-        macro.setProtein(calculateProtein(userInfo ,  typeOfNutrition));
-        macro.setFat(calculateFat(userInfo ,  typeOfNutrition));
+    public void setMacro(UserInfo userInfo) {
+        macro.setKcal(calculateCaloricDemand(userInfo));
+        macro.setProtein(calculateProtein(userInfo));
+        macro.setFat(calculateFat(userInfo));
         macro.setFiber(calculateFiber(userInfo));
         macro.setCarbs(calculateCarbs(macro));
     }

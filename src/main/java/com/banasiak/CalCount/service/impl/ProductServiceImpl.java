@@ -18,13 +18,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts(Long id) {
-
         return productRepo.findAllForUser(id);
     }
 
     @Override
-    public void saveProduct(Product product) {
-        productRepo.save(product);
+    public Product saveProduct(Product product) {
+      return productRepo.save(product);
     }
 
 }
